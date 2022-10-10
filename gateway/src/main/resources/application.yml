@@ -22,7 +22,6 @@ spring:
             client-id: ${keycloak.clientId}
             client-secret: ${keycloak.clientSecret}
             authorization-grant-type: authorization_code
-            redirect-uri: "{baseUrl}/{action}/oath2/code/{registrationId}"
         provider:
           keycloak:
             authorization-uri: ${keycloak.realm-url}/protocol/openid-connect/auth

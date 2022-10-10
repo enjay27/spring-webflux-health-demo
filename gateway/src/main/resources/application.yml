@@ -1,3 +1,33 @@
 server:
   port: 8081
 
+keycloak:
+  base-url: http://192.168.50.2:8076
+  realm: webflux
+  realm-url: ${keycloak.base-url}/realms/${keycloak.realm}
+  clientId: myclient
+  clientSecret: HQ0Z5D7KetPMdcopb99gfII6gEcq55zI
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${keycloak.base-url}/realms/${keycloak.realm}/protocol/openid-connect/certs
+          issuer-uri: ${keycloak.base-url}/realms/${keycloak.realm}
+      client:
+        registration:
+          keycloak:
+            provider: keycloak
+            client-id: ${keycloak.clientId}
+            client-secret: ${keycloak.clientSecret}
+            authorization-grant-type: refresh_token
+            redirect-uri: "{baseUrl}/{action}/oath2/code/{registrationId}"
+        provider:
+          keycloak:
+            authorization-uri: ${keycloak.realm-url}/protocol/openid-connect/auth
+            jwk-set-uri: ${keycloak.realm-url}/protocol/openid-connect/certs
+            token-uri: ${keycloak.realm-url}/protocol/openid-connect/token
+            user-info-uri: ${keycloak.realm-url}/protocol/openid-connect/userinfo
+            user-name-attribute: preferred_username
+            issuer-uri: ${keycloak.base-url}/realms/${keycloak.realm}

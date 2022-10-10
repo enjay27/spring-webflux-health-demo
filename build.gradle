@@ -4,19 +4,22 @@ plugins {
     id 'java'
 }
 
-group = 'com.webflux'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
-
 repositories {
     mavenCentral()
 }
 
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+ext {
+    set('rootProjectDir', "${projectDir}")
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
+allprojects {
+    group = 'com.webflux'
+    version = '0.0.1-SNAPSHOT'
+
+    sourceCompatibility = '11'
+    buildDir = "${rootProjectDir}/.build/${project.name}/build"
 }
+
+jar.enabled = false
+bootJar.enabled = false
+bootJarMainClassName.enabled = false

@@ -21,7 +21,7 @@ spring:
             provider: keycloak
             client-id: ${keycloak.clientId}
             client-secret: ${keycloak.clientSecret}
-            authorization-grant-type: refresh_token
+            authorization-grant-type: authorization_code
             redirect-uri: "{baseUrl}/{action}/oath2/code/{registrationId}"
         provider:
           keycloak:
@@ -31,3 +31,15 @@ spring:
             user-info-uri: ${keycloak.realm-url}/protocol/openid-connect/userinfo
             user-name-attribute: preferred_username
             issuer-uri: ${keycloak.base-url}/realms/${keycloak.realm}
+
+eureka:
+  client:
+    enabled: false
+
+logging:
+  level:
+    org:
+      springframework:
+        cloud: trace
+        web: trace
+        security: trace

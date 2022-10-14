@@ -1,4 +1,4 @@
-rootProject.name = 'demo-spring-reactive-health'
+rootProject.name = 'spring-webflux-sns-demo'
 
 include ':discovery'
 include ':gateway'
